@@ -1,9 +1,7 @@
 <template>
   <div>
-  <div>
-    <navbar></navbar></div>
-  <div>
-  <crousel></crousel></div>
+    <div><navbar></navbar></div>
+    <div><crousel></crousel></div>
     <div>
         <section class="section">
           <div class="container">
