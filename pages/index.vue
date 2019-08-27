@@ -33,12 +33,24 @@
 <script>
 import navbar from '~/components/navbar.vue'
 import crousel from '~/components/crousel.vue'
-
+import firebase from 'firebase'
 export default {
   components: {
       navbar,
       crousel
   },
+    methods: {
+        googleSignIn () {
+            this.provider = new firebase.auth.GoogleAuthProvider()
+            firebase.auth().signInWithPopup(this.provider).then(result => {
+                // store the user ore wathever
+                this.$router.push('/charts')
+            }).catch(e => {
+                this.$snotify.error(e.message)
+                console.log(e)
+            })
+        }
+    },
     async asyncData({ app }) {
         const { articles } = await app.$axios.$get(
             `https://newsapi.org/v2/top-headlines?sources=cnn&apiKey=${

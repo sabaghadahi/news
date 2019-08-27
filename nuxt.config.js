@@ -28,7 +28,8 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '~plugins/vue-highcharts.js', ssr: false }
+    { src: '~plugins/vue-highcharts.js', ssr: false },
+    { src: '~plugins/firebase.js', ssr: false },
   ],
   /*
   ** Nuxt.js dev-modules
