@@ -1,12 +1,27 @@
 <template>
   <div>
-    <vue-highcharts :options="options" ref="lineCharts"></vue-highcharts>
-    <button @click="load">load</button>
+    <div>
+      <b-navbar toggleable="lg" type="dark" variant="info">
+        <b-navbar-brand href="#"><img src="~/assets/img/126309.png" class="width"> </b-navbar-brand>
+        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+        <b-collapse id="nav-collapse" is-nav>
+          <b-navbar-nav>
+            <b-button variant="danger" @click="googleSignout">logout</b-button>
+          </b-navbar-nav>
+          <!-- Right aligned nav items -->
+        </b-collapse>
+      </b-navbar>
+    </div>
+    <div>
+      <vue-highcharts :options="options" ref="lineCharts"></vue-highcharts>
+      <button @click="load">load</button>
+    </div>
   </div>
 </template>
 
 <script>
     import VueHighcharts from 'vue2-highcharts'
+    import firebase from 'firebase'
     const asyncData = {
         name: 'Tokyo',
         marker: {
@@ -77,7 +92,23 @@
                     lineCharts.addSeries(asyncData);
                     lineCharts.hideLoading();
                 }, 2000)
+            },
+            googleSignout () {
+                this.provider = new firebase.auth.GoogleAuthProvider()
+                firebase.auth().signOut().then(result => {
+                    // store the user ore wathever
+                    this.$router.push('/')
+                }).catch(e => {
+                    this.$snotify.error(e.message)
+                    console.log(e)
+                })
+
+                }
             }
-        }
     }
 </script>
+<style scoped>
+  .width{
+    width: 50px;
+  }
+</style>
